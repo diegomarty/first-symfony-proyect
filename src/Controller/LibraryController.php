@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -9,6 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LibraryController extends AbstractController
 {
+
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
 
     /**
      * @Route ("/library/list", name="library_list")
@@ -19,6 +27,8 @@ class LibraryController extends AbstractController
     {
         $bookId = $request->get('id', 0);
         $bookName = $request->get('name', null);
+
+        $this->logger->info('this is a Log');
 
         $response = new JsonResponse();
         $response->setData([
