@@ -13,9 +13,9 @@ class LibraryController extends AbstractController
 
     private $logger;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct()
     {
-        $this->logger = $logger;
+
     }
 
     /**
@@ -23,12 +23,12 @@ class LibraryController extends AbstractController
      *
      * @return void
      */
-    public function list(Request $request)
+    public function list(Request $request, LoggerInterface $logger)
     {
         $bookId = $request->get('id', 0);
         $bookName = $request->get('name', null);
 
-        $this->logger->info('this is a Log');
+        $logger->info('this is a Log by parameter');
 
         $response = new JsonResponse();
         $response->setData([
