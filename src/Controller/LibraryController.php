@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LibraryController extends AbstractController
 {
@@ -14,8 +15,11 @@ class LibraryController extends AbstractController
      *
      * @return void
      */
-    public function list()
+    public function list(Request $request)
     {
+        $bookId = $request->get('id', 0);
+        $bookName = $request->get('name', null);
+
         $response = new JsonResponse();
         $response->setData([
             'success' => true,
@@ -27,6 +31,10 @@ class LibraryController extends AbstractController
                 [
                     'id' => 2,
                     'name' => 'Library 2',
+                ],
+                [
+                    'id' => $bookId,
+                    'name' => $bookName,
                 ]
             ]
         ]);
